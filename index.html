@@ -3,8 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Untldimg AR Test</title>
+    <title>AR Test</title>
 
+    <!-- A-Frame + MindAR -->
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
@@ -22,9 +23,9 @@
         right: 12px;
         bottom: 12px;
         z-index: 9999;
-        background: rgba(0, 0, 0, 0.6);
+        background: rgba(0,0,0,0.6);
         color: white;
-        padding: 10px 12px;
+        padding: 10px;
         border-radius: 10px;
         text-align: center;
         font-size: 14px;
@@ -33,7 +34,7 @@
   </head>
 
   <body>
-    <div class="msg" id="msg">Point your camera at the QR/marker.</div>
+    <div class="msg" id="msg">Point your camera at the QR marker</div>
 
     <a-scene
       mindar-image="imageTargetSrc: ./assets/target.mind; autoStart: true;"
@@ -42,22 +43,26 @@
       vr-mode-ui="enabled: false"
       device-orientation-permission-ui="enabled: false"
     >
+      <!-- Assets -->
       <a-assets>
         <img id="img" src="./assets/wall-repair.PNG" />
       </a-assets>
 
+      <!-- Camera -->
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
+      <!-- Marker tracking -->
       <a-entity id="target" mindar-image-target="targetIndex: 0" visible="false">
+
+        <!-- Your PNG (600mm approx) -->
         <a-image
-          id="overlay"
           src="#img"
-          position="0 0 0.08"
-          width="12"
-          height="12"
-          opacity="1"
+          position="0 0 0.1"
+          width="6"
+          height="6"
           transparent="true"
         ></a-image>
+
       </a-entity>
     </a-scene>
 
@@ -67,12 +72,12 @@
 
       target.addEventListener("targetFound", () => {
         target.setAttribute("visible", true);
-        msg.textContent = "Marker found.";
+        msg.textContent = "Marker found";
       });
 
       target.addEventListener("targetLost", () => {
         target.setAttribute("visible", false);
-        msg.textContent = "Point your camera at the QR/marker.";
+        msg.textContent = "Point your camera at the QR marker";
       });
     </script>
   </body>
